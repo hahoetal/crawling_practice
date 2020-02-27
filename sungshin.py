@@ -1,13 +1,10 @@
 ## 강의 정보 가지고 오기
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-import requests # 웹 페이지의 html 가지고 오는 모듈
 from bs4 import BeautifulSoup # 가지고 온 html을 파싱하여 python이 이해할 수 있게 해주는 모듈
-from time import sleep
 from selenium.webdriver.support.ui import Select # html에서 select의 option 선택을 위해서 추가
 
 # chromedriver 위치 지정
-path = '크롬 드라이버가 저장된 위치, 절대 경로로 적어주었다.'
+path = '크롬 드라이버의 위치'
 driver = webdriver.Chrome(path)
 
 # 수강신청 페이지 아이디와 비밀번호
@@ -22,11 +19,9 @@ driver.implicitly_wait(7)
 # 로그인 버튼 클릭
 driver.find_element_by_xpath('//*[@id="loginLink"]').click()
 
-login = driver.find_element_by_id('id')
-login.send_keys(user)
-login = driver.find_element_by_id('password')
-login.send_keys(pw)
-login.send_keys(Keys.RETURN)
+driver.find_element_by_id('id').send_keys(user)
+driver.find_element_by_id('password').send_keys(pw)
+driver.find_element_by_id('submit').click()
 # 여기까지 로그인!!
 
 # 개설강좌조회 버튼 클릭
@@ -73,19 +68,28 @@ lecture = [] # 강의 정보를 담을 리스트
 for tr in table.find_all('tr'):
     tds = list(tr.find_all('td'))
 
-    for td in tds:
-        if td.find('a'):
-            lectureName = tds[3].text
-            professor = tds[13].text
+    lectureName = professor = major = separation = ''
+
+    for n in range(len(tds)): # tds의 길이만큼 반복
+        if n == 1:
             major = tds[1].text
+        elif n == 3:
+            lectureName = tds[3].text
+        elif n== 5:
             separation = tds[5].text
-            lecture.append([lectureName, professor, major, separation])
+        elif n == 13:
+            professor = tds[13].text
+        else:
+            pass # n이 1, 3, 5, 13이 아닌 경우에는 아무 것도 수행하지 않고 넘어감.     
+            
+    lecture.append([lectureName, professor, major, separation])
 
 
+# 가지고 온 데이터를 csv 파일로 만들기
 with open('lecture.csv', 'w', encoding='utf-8') as file:
     file.write('lectureName, professor, major, separation\n')
     for i in lecture:
         file.write('{0},{1},{2},{3}\n'.format(i[0], i[1], i[2], i[3]))
 
-# 강의 목록을 가지고 오기는 하지만 파일을 열어서 보면 강의 목록이 똑같은게 두 개씩 있고 그런다.
-# 나중에 천천히 보면서 찾아볼 것!!
+# 동일한 강의를 반을 나누어서 수업하는 경우, 강의 시간과 대상자만 다를 뿐 모든 것이 동일하다.
+# 이것까지 고려해서 크롤링하는 건... 지금 생각하기에 불가능한 것 같다.

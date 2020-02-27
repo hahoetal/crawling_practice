@@ -3,7 +3,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from time import sleep
 
-driver = webdriver.Chrome('C:/Users/yeong/Downloads/chromedriver_win32/chromedriver.exe')
+driver = webdriver.Chrome('크롬 드라이버 위치')
 
 driver.get('https://everytime.kr/login')
 # 암묵적으로 웹 자원 로드를 위해 5초까지 기다리기
