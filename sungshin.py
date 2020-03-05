@@ -78,18 +78,27 @@ for tr in table.find_all('tr'):
         elif n== 5:
             separation = tds[5].text
         elif n == 13:
-            professor = tds[13].text
+            if tds[13].text:
+                professor = tds[13].text
+            else:
+                professor = '미정'
         else:
             pass # n이 1, 3, 5, 13이 아닌 경우에는 아무 것도 수행하지 않고 넘어감.     
             
     lecture.append([lectureName, professor, major, separation])
 
+# 중복 제거하기
+lecture = list(set([tuple(lect) for lect in lecture]))
+# 2차원 리스트인 lecture에서 내부 리스트를 하나씩 꺼내 lect에 담고, lect를 튜플로 만듦
+# 튜플의 변경 불가능, hashable한 특성을 이용하기 위함.
+# (hashable: 객체의 전 생애에 걸쳐 hash 값이 변하지 않고, 그 값을 다른 객체와 비교 가능함을 의미), hash는 좀 더 찾아보고 이해해보자!
+
+# set()을 이용하여 중복을 제거하고 다시 리스트로 만들어 줌
+# set() : 집합에 관련된 것을 쉽게 처리하기 위한 자료형
+# 중복을 허용하지 않고, 순서가 없다는 것이 특징.
 
 # 가지고 온 데이터를 csv 파일로 만들기
 with open('lecture.csv', 'w', encoding='utf-8') as file:
     file.write('lectureName, professor, major, separation\n')
     for i in lecture:
         file.write('{0},{1},{2},{3}\n'.format(i[0], i[1], i[2], i[3]))
-
-# 동일한 강의를 반을 나누어서 수업하는 경우, 강의 시간과 대상자만 다를 뿐 모든 것이 동일하다.
-# 이것까지 고려해서 크롤링하는 건... 지금 생각하기에 불가능한 것 같다.
