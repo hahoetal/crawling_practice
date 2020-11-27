@@ -24,9 +24,10 @@
 
    ```shell
    pip install selenium
-   ```<br/>
+   ```
+   
    webdriver도 설치해야 함.<br/>
-   크롬을 이용해서 크롤링할 것이기 때문에 chromedriver를 설치~~<br/>
+   크롬을 이용해서 크롤링할 것이기 때문에 chromedriver도 설치
 
 
    책 '파이썬 코딩 도장' 구글링해서 찾은 여러 블로그 글, 깃허브 wwlee94/everytime-timetable-crawling 참고했음...!<br/>
