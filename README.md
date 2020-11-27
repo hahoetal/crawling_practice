@@ -7,7 +7,7 @@
 
    사용하기 전에  설치하기.<br/>
 
-   '''
+   '''shell
    pip install requests
 
    pip install BeautifulSoup
@@ -22,7 +22,7 @@
 
    사용하기 전에 설치하기.<br/>
 
-   '''
+   '''shell
    pip install selenium
    '''<br/>
    webdriver도 설치해야 함.<br/>
