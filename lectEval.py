@@ -8,7 +8,7 @@ username = input('아이디를 입력하세요: ')
 pw = input('비밀번호를 입력하세요: ')
 lect = input('가져올 강의명을 입력하세요: ')
 
-driver = webdriver.Chrome('크롬 경로')
+driver = webdriver.Chrome('웹 드라이버 경로')
 
 # 로그인 페이지
 driver.get('https://everytime.kr/login')
@@ -56,7 +56,7 @@ for article in div2.find_all('article'):
     t = article.find('p', {'class':'text'}).text
     lectEval.append(t)
 
-with open('lectEval.csv', 'w', encoding='utf-8') as file:
+with open('lectEval.txt', 'w', encoding='utf-8') as file:
     file.write(f'{name}_{professor}\n')
     for l in lectEval:
         file.write(f'{l}\n')
