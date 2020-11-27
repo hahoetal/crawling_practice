@@ -7,11 +7,11 @@
 
    사용하기 전에  설치하기.<br/>
 
-   '''shell
+   ```shell
    pip install requests
 
    pip install BeautifulSoup
-   '''
+   ```
 
 
 ### 2) 웹 페이지에 모든 정보가 보여지지 않고 이후 사용자의 동작에 따라 js를 이용해 정보를 가져와 보여주는 경우.
@@ -22,9 +22,9 @@
 
    사용하기 전에 설치하기.<br/>
 
-   '''shell
+   ```shell
    pip install selenium
-   '''<br/>
+   ```<br/>
    webdriver도 설치해야 함.<br/>
    크롬을 이용해서 크롤링할 것이기 때문에 chromedriver를 설치~~<br/>
 
